@@ -8,6 +8,9 @@ public class ProblemTextDisplay : MonoBehaviour
     private StringVariable mathProblem;
 
     [SerializeField]
+    private FloatVariable answer;
+
+    [SerializeField]
     private FloatVariable option1;
 
     [SerializeField]

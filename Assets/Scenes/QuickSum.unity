@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mathProblem: {fileID: 11400000, guid: 5c12112b7814e9b4f98d5581934ee90e, type: 2}
+  answer: {fileID: 11400000, guid: 2e27f11aa0aee284bb44f69782ea3957, type: 2}
   option1: {fileID: 11400000, guid: 3cbc9d643cd93a24e83711f908acb73c, type: 2}
   option2: {fileID: 11400000, guid: a1881bf2dfc133a4bbd9fad96869cf9a, type: 2}
 --- !u!1 &519420028
