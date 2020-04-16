@@ -18,13 +18,12 @@ public class ProblemRandomizer
         problemList = new List<MathProblem>();
     }
 
-    void resetProblemList()
+    public void resetProblemList()
     {
         problemList = new List<MathProblem>();
     }
 
-    // generate problems + answers
-    void generateProblemList(int level)
+    public void generateProblemList(int level)
     {
         int mathOperator = Random.Range(1, 4);
         int item1 = Random.Range(level, level + LevelRandomRange);
@@ -90,6 +89,18 @@ public class ProblemRandomizer
         }
     }
 
+    public MathProblem getNextMathProblem()
+    {
+        MathProblem mathProblem = new MathProblem();
 
-    // get next problem + options
+        if (problemList.Count == 0)
+        {
+            return mathProblem;
+        }
+
+        mathProblem = problemList[0];
+        problemList.RemoveAt(0);
+
+        return mathProblem;
+    }
 }
