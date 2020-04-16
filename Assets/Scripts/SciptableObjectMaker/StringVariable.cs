@@ -8,9 +8,9 @@ using UnityEngine;
 public class StringVariable : ScriptableObject
 {
     #region Properties
-    public string InitValue;
+    public String InitValue;
 
-    [NonSerialized] public string RuntimeValue;
+    [NonSerialized] public String RuntimeValue;
     #endregion
 
     public void OnAfterDeserialize()

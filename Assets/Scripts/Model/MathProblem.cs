@@ -3,13 +3,14 @@
  *  description : 
  */
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+using System;
 
 public struct MathProblem
 {
-    public string statement;
+    public String statement;
     public float option1;
     public float option2;
     public float answer;
