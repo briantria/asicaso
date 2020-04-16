@@ -47,7 +47,7 @@ public class ProblemRandomizer
             case 3:
                 {
                     mathProblem.statement = item1 + " x " + item2;
-                    mathProblem.answer = item1 + item2;
+                    mathProblem.answer = item1 * item2;
                     break;
                 }
             default:
@@ -67,7 +67,7 @@ public class ProblemRandomizer
         int offset = 0;
         while (offset == 0)
         {
-            offset = Random.Range(-5, 5);
+            offset = Random.Range(-2, 2);
         }
 
         if (Random.value > 0.5f)
@@ -79,6 +79,12 @@ public class ProblemRandomizer
         {
             mathProblem.option1 = mathProblem.answer + offset;
             mathProblem.option2 = mathProblem.answer;
+        }
+
+        if (problemList.Contains(mathProblem))
+        {
+            generateProblemList(level);
+            return;
         }
 
         problemList.Add(mathProblem);

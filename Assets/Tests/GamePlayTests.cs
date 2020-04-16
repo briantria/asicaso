@@ -30,15 +30,18 @@ namespace Tests
             problemRandomizer.generateProblemList(1);
 
             int mathProblemCount = 0;
+            List<MathProblem> mathProblemList = new List<MathProblem>();
             MathProblem mathProblem = problemRandomizer.getNextMathProblem();
             Assert.IsNotEmpty(mathProblem.statement, "initial math problem statement should not be empty.");
 
             while (!String.IsNullOrEmpty(mathProblem.statement))
             {
                 mathProblemCount++;
+                mathProblemList.Add(mathProblem);
                 TestContext.WriteLine(mathProblem.statement + " = [a] " + mathProblem.option1 + ", [b] " + mathProblem.option2);
                 Assert.AreNotEqual(mathProblem.option1, mathProblem.option2, "options should never be equal.");
                 mathProblem = problemRandomizer.getNextMathProblem();
+                Assert.IsFalse(mathProblemList.Contains(mathProblem));
             }
 
             Assert.AreEqual(mathProblemCount, 10, "problem list count should be 10.");
