@@ -6,33 +6,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProblemTextDisplay : MonoBehaviour
 {
     [SerializeField]
     private MathProblemVariable currentMathProblem;
 
-    // [SerializeField]
-    // private StringVariable mathProblem;
+    private Text problemStatement;
 
-    // [SerializeField]
-    // private FloatVariable answer;
+    #region LifeCycle
 
-    // [SerializeField]
-    // private FloatVariable option1;
+    void OnEnable()
+    {
+        GameManager.OnGameStart += UpdateProblemStatement;
+    }
 
-    // [SerializeField]
-    // private FloatVariable option2;
+    void OnDisable()
+    {
+        GameManager.OnGameStart -= UpdateProblemStatement;
+    }
 
-    // Start is called before the first frame update
     void Start()
     {
-
+        problemStatement = GetComponent<Text>();
+        if (problemStatement == null)
+        {
+            Debug.LogError("Missing problem text component.");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    #endregion
+
+    #region Private
+
+    void UpdateProblemStatement()
     {
+        if (problemStatement == null)
+        {
+            problemStatement = GetComponent<Text>();
+        }
 
+        MathProblem mathProblem = currentMathProblem.RuntimeValue;
+        problemStatement.text = mathProblem.statement;
     }
+
+    #endregion
 }
