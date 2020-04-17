@@ -8,6 +8,7 @@
 // using UnityEngine;
 using System;
 
+[Serializable]
 public struct MathProblem
 {
     public String statement;

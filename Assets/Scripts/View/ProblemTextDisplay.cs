@@ -9,6 +9,9 @@ using UnityEngine;
 
 public class ProblemTextDisplay : MonoBehaviour
 {
+    [SerializeField]
+    private MathProblemVariable currentMathProblem;
+
     // [SerializeField]
     // private StringVariable mathProblem;
 

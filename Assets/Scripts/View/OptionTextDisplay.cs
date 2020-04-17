@@ -9,6 +9,12 @@ using UnityEngine;
 
 public class OptionTextDisplay : MonoBehaviour
 {
+    [SerializeField]
+    private MathProblemVariable currentMathProblem;
+
+    [SerializeField]
+    private int optionIndex;
+
     // Start is called before the first frame update
     void Start()
     {

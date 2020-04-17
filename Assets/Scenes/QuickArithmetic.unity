@@ -340,10 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e99586bb198744092498fe0e71a3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mathProblem: {fileID: 11400000, guid: 5c12112b7814e9b4f98d5581934ee90e, type: 2}
-  answer: {fileID: 11400000, guid: 2e27f11aa0aee284bb44f69782ea3957, type: 2}
-  option1: {fileID: 11400000, guid: 3cbc9d643cd93a24e83711f908acb73c, type: 2}
-  option2: {fileID: 11400000, guid: a1881bf2dfc133a4bbd9fad96869cf9a, type: 2}
+  currentMathProblem: {fileID: 11400000, guid: 906f56ae8f9eb8c40a769cf0d65c38f6, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90ba29e19b5cc84097393cb7117a538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMathProblem: {fileID: 11400000, guid: 906f56ae8f9eb8c40a769cf0d65c38f6, type: 2}
+  optionIndex: 2
 --- !u!1 &1152153242
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +798,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90ba29e19b5cc84097393cb7117a538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMathProblem: {fileID: 11400000, guid: 906f56ae8f9eb8c40a769cf0d65c38f6, type: 2}
+  optionIndex: 1
 --- !u!1 &1601309837
 GameObject:
   m_ObjectHideFlags: 0

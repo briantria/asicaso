@@ -1,4 +1,6 @@
-﻿/* source: https://unity3d.com/how-to/architect-with-scriptable-objects
+﻿/*  author      : brian tria
+ *  date        : april 16, 2020
+ *  description : https://unity3d.com/how-to/architect-with-scriptable-objects
  */
 
 using System;
