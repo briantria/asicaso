@@ -9,17 +9,17 @@ using UnityEngine;
 
 public class ProblemTextDisplay : MonoBehaviour
 {
-    [SerializeField]
-    private StringVariable mathProblem;
+    // [SerializeField]
+    // private StringVariable mathProblem;
 
-    [SerializeField]
-    private FloatVariable answer;
+    // [SerializeField]
+    // private FloatVariable answer;
 
-    [SerializeField]
-    private FloatVariable option1;
+    // [SerializeField]
+    // private FloatVariable option1;
 
-    [SerializeField]
-    private FloatVariable option2;
+    // [SerializeField]
+    // private FloatVariable option2;
 
     // Start is called before the first frame update
     void Start()
