@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
     public delegate void GameAction();
     public static event GameAction OnGameStart;
     public static event GameAction OnDisplayNextChallenge;
-    public static event GameAction OnChooseOption1;
-    public static event GameAction OnChooseOption2;
+    // public static event GameAction OnChooseOption1;
+    // public static event GameAction OnChooseOption2;
     public static event GameAction OnAddScore;
     public static event GameAction OnGameOver;
 
@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
         if (OnGameStart != null)
         {
             OnGameStart();
+        }
+
+        if (OnDisplayNextChallenge != null)
+        {
+            OnDisplayNextChallenge();
         }
     }
 

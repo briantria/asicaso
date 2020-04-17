@@ -13,38 +13,29 @@ public class ProblemTextDisplay : MonoBehaviour
     [SerializeField]
     private MathProblemVariable currentMathProblem;
 
-    private Text problemStatement;
-
     #region LifeCycle
 
     void OnEnable()
     {
-        GameManager.OnGameStart += UpdateProblemStatement;
+        GameManager.OnDisplayNextChallenge += UpdateProblemText;
     }
 
     void OnDisable()
     {
-        GameManager.OnGameStart -= UpdateProblemStatement;
-    }
-
-    void Start()
-    {
-        problemStatement = GetComponent<Text>();
-        if (problemStatement == null)
-        {
-            Debug.LogError("Missing problem text component.");
-        }
+        GameManager.OnDisplayNextChallenge -= UpdateProblemText;
     }
 
     #endregion
 
     #region Private
 
-    void UpdateProblemStatement()
+    void UpdateProblemText()
     {
+        Text problemStatement = GetComponent<Text>();
         if (problemStatement == null)
         {
-            problemStatement = GetComponent<Text>();
+            Debug.LogError("Problem statement is missing.");
+            return;
         }
 
         MathProblem mathProblem = currentMathProblem.RuntimeValue;
