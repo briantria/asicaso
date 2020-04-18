@@ -3,6 +3,7 @@
  *  description : 
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,6 @@ public class GameManager : MonoBehaviour
     public delegate void GameAction();
     public static event GameAction OnGameStart;
     public static event GameAction OnDisplayNextChallenge;
-    // public static event GameAction OnChooseOption1;
-    // public static event GameAction OnChooseOption2;
     public static event GameAction OnAddScore;
     public static event GameAction OnGameOver;
 
@@ -26,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     private ProblemRandomizer problemRandomizer;
     private int gameLevel;
+    private int lifeCount;
 
     void Start()
     {
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        lifeCount = 3;
         gameLevel = 1;
         problemRandomizer = new ProblemRandomizer();
         problemRandomizer.generateProblemList(gameLevel);
@@ -51,31 +52,83 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #region Private Methods
+
+    void checkAnswer(float option)
+    {
+        MathProblem mathProblem = currentMathProblem.RuntimeValue;
+        float answer = mathProblem.answer;
+
+        if (option == answer)
+        {
+            loadNextChallenge();
+        }
+        else
+        {
+            // Debug.LogError("Wrong answer.");
+            doDamage();
+        }
+    }
+
+    void loadNextChallenge()
+    {
+        MathProblem mathProblem = problemRandomizer.getNextMathProblem();
+
+        if (String.IsNullOrEmpty(mathProblem.statement))
+        {
+            loadNextLevel();
+            return;
+        }
+
+        currentMathProblem.RuntimeValue = mathProblem;
+        if (OnDisplayNextChallenge != null)
+        {
+            OnDisplayNextChallenge();
+        }
+    }
+
+    void loadNextLevel()
+    {
+        gameLevel++;
+        problemRandomizer.resetProblemList();
+        problemRandomizer.generateProblemList(gameLevel);
+        currentMathProblem.RuntimeValue = problemRandomizer.getNextMathProblem();
+
+        if (OnDisplayNextChallenge != null)
+        {
+            OnDisplayNextChallenge();
+        }
+    }
+
+    void doDamage()
+    {
+        lifeCount--;
+
+        if (lifeCount == 0)
+        {
+            if (OnGameOver != null)
+            {
+                OnGameOver();
+            }
+
+            return;
+        }
+    }
+
+    #endregion
+
     #region Public Methods
 
     public void ChooseOption(int optionIndex)
     {
-        switch (optionIndex)
-        {
-            case 1:
-                {
-                    // if (OnChooseOption1 != null)
-                    // {
-                    //     OnChooseOption1();
-                    // }
+        MathProblem mathProblem = currentMathProblem.RuntimeValue;
 
-                    break;
-                }
-            default:
-                {
-                    // if (OnChooseOption2 != null)
-                    // {
-                    //     OnChooseOption2();
-                    // }
+        // 0: padding; 1: option1; 2: option2
+        float[] options = new float[3];
+        options[1] = mathProblem.option1;
+        options[2] = mathProblem.option2;
 
-                    break;
-                }
-        }
+        checkAnswer(options[optionIndex]);
     }
 
     #endregion
