@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
     public delegate void GameAction();
     public static event GameAction OnGameStart;
     public static event GameAction OnDisplayNextChallenge;
-    // public static event GameAction OnChooseOption1;
-    // public static event GameAction OnChooseOption2;
     public static event GameAction OnAddScore;
     public static event GameAction OnGameOver;
 
@@ -27,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     private ProblemRandomizer problemRandomizer;
     private int gameLevel;
+    private int lifeCount;
 
     void Start()
     {
@@ -36,6 +35,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        lifeCount = 3;
         gameLevel = 1;
         problemRandomizer = new ProblemRandomizer();
         problemRandomizer.generateProblemList(gameLevel);
@@ -65,7 +65,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Wrong answer.");
+            // Debug.LogError("Wrong answer.");
+            doDamage();
         }
     }
 
@@ -99,6 +100,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void doDamage()
+    {
+        lifeCount--;
+
+        if (lifeCount == 0)
+        {
+            if (OnGameOver != null)
+            {
+                OnGameOver();
+            }
+
+            return;
+        }
+    }
+
     #endregion
 
     #region Public Methods
@@ -106,7 +122,6 @@ public class GameManager : MonoBehaviour
     public void ChooseOption(int optionIndex)
     {
         MathProblem mathProblem = currentMathProblem.RuntimeValue;
-        //float answer = mathProblem.answer;
 
         // 0: padding; 1: option1; 2: option2
         float[] options = new float[3];
