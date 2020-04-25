@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bcf4ce91c921bc4439a4fb47ecb77230
+guid: c8d2906a5f4f1644db37959d32ad9df1
 ScriptedImporter:
   fileIDToRecycleName:
-    100000: gameObject/star
-    400000: gameObject/star/Transform
-    21200000: gameObject/star/SpriteRenderer
+    100000: gameObject/spaceship_svg
+    400000: gameObject/spaceship_svg/Transform
+    21200000: gameObject/spaceship_svg/SpriteRenderer
     21300000: sprite
     100100000: gameObject
   externalObjects: {}
@@ -20,11 +20,11 @@ ScriptedImporter:
   customPivot: {x: 0, y: 0}
   generatePhysicsShape: 0
   preserveViewport: 0
-  advancedMode: 0
+  advancedMode: 1
   predefinedResolutionIndex: 1
   targetResolution: 1080
   resolutionMultiplier: 1
-  stepDistance: 10
+  stepDistance: 0.1
   samplingStepDistance: 100
   maxCordDeviationEnabled: 0
   maxCordDeviation: 1
@@ -42,16 +42,16 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: starSprite
+      name: spaceship_svgSprite
       originalName: 
-      pivot: {x: 0.49862912, y: 0.49862462}
+      pivot: {x: 0.5009279, y: 0.49980545}
       alignment: 0
       border: {x: 0, y: 0, z: 0, w: 0}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 42
-        height: 42
-      spriteID: 1ea08691eb44eb94898f04d2eed10dc5
+        width: 167
+        height: 125
+      spriteID: c6acd2ac2e40c1745a47a0bb371392e3
     PhysicsOutlines: []
