@@ -14,7 +14,9 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadSceneAsync("QuickArithmetic");
+        //SceneManager.LoadSceneAsync("QuickArithmetic");
+        SceneManager.LoadSceneAsync("GameHud", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync("MainMenu");
     }
 
     #endregion
