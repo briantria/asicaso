@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: da95e61d612a7e04fa24ca6b6bf847c7
+guid: 9dc5f57404b56414ebcefbc3d766d3ef
 ScriptedImporter:
   fileIDToRecycleName:
-    100002: gameObject/gamehud_panel
-    400002: gameObject/gamehud_panel/Transform
-    21200002: gameObject/gamehud_panel/SpriteRenderer
+    100000: gameObject/gamehud_problem_panel
+    400000: gameObject/gamehud_problem_panel/Transform
+    21200000: gameObject/gamehud_problem_panel/SpriteRenderer
     21300000: sprite
     100100000: gameObject
   externalObjects: {}
@@ -53,5 +53,5 @@ ScriptedImporter:
         y: 0
         width: 0
         height: 0
-      spriteID: 3e59a9669e4b1044986c6221bac21f19
+      spriteID: d8b385830a2b76e469ea03cec9a368eb
     PhysicsOutlines: []

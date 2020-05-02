@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b29cbbf50b16a9f47bee6da2852e32a6
+guid: bd0c5eb5fddf0af42b2ba1bace5eabf3
 ScriptedImporter:
   fileIDToRecycleName:
-    100000: gameObject/gamehud_cap
-    400000: gameObject/gamehud_cap/Transform
-    21200000: gameObject/gamehud_cap/SpriteRenderer
+    100000: gameObject/gamehud_panel
+    400000: gameObject/gamehud_panel/Transform
+    21200000: gameObject/gamehud_panel/SpriteRenderer
     21300000: sprite
     100100000: gameObject
   externalObjects: {}
@@ -53,5 +53,5 @@ ScriptedImporter:
         y: 0
         width: 0
         height: 0
-      spriteID: b5d64e301656fe1438cbfe5e6d05c66c
+      spriteID: a1d911e9428b0b748b3552b7a2148594
     PhysicsOutlines: []
