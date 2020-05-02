@@ -122,6 +122,7 @@ public class GameManager : MonoBehaviour
     public void ChooseOption(int optionIndex)
     {
         MathProblem mathProblem = currentMathProblem.RuntimeValue;
+        Debug.Log("choose option " + optionIndex);
 
         // 0: padding; 1: option1; 2: option2
         float[] options = new float[3];
