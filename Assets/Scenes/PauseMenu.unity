@@ -528,7 +528,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 586189556}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 587033541}
+        m_MethodName: ResumeGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &586189556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,6 +705,24 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 587033538}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &587033540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5624061234540509730, guid: a9166a105d906b74c84b2ded56ee6b94,
+    type: 3}
+  m_PrefabInstance: {fileID: 587033538}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &587033541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587033540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92f3b87815d640749b207c15b23239ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1260340959
 GameObject:
   m_ObjectHideFlags: 0

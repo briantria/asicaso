@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -130,6 +131,12 @@ public class GameManager : MonoBehaviour
         options[2] = mathProblem.option2;
 
         checkAnswer(options[optionIndex]);
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        SceneManager.LoadSceneAsync("PauseMenu", LoadSceneMode.Additive);
     }
 
     #endregion
