@@ -10,7 +10,7 @@ using UnityEngine;
 public class Background : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
@@ -26,8 +26,8 @@ public class Background : MonoBehaviour
         float worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
 
         Vector3 scale = Vector3.one;
-        scale.x = worldScreenWidth / width;
-        scale.y = worldScreenHeight / height;
+        scale.x = (worldScreenWidth / width) * 1.2f;
+        scale.y = (worldScreenHeight / height) * 1.2f;
 
         transform.localScale = scale;
     }

@@ -10,11 +10,27 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    #region  Events
+
+    public delegate void MenuAction();
+    public static event MenuAction OnPlay;
+
+    #endregion
+
+    // void Update()
+    // {
+
+    // }
+
     #region Public Methods
 
     public void Play()
     {
-        //SceneManager.LoadSceneAsync("QuickArithmetic");
+        if (OnPlay != null)
+        {
+            OnPlay();
+        }
+
         SceneManager.LoadSceneAsync("GameHud", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("MainMenu");
     }
