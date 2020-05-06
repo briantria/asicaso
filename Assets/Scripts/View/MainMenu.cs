@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     // void Update()
     // {
-
+    // TODO: animate
     // }
 
     #region Public Methods

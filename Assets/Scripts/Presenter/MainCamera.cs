@@ -7,6 +7,7 @@ public class MainCamera : MonoBehaviour
     private const float zoomSpeed = 5.0f;
 
     private bool zoomingOut = false;
+    private bool zoomingIn = false;
     private float zoomTotalDistance;
     private float zoomDistance;
     private Vector3 camZoomInPosition;
@@ -18,11 +19,13 @@ public class MainCamera : MonoBehaviour
     void OnEnable()
     {
         MainMenu.OnPlay += ZoomOut;
+        PauseMenu.OnQuit += ZoomIn;
     }
 
     void OnDisable()
     {
         MainMenu.OnPlay -= ZoomOut;
+        PauseMenu.OnQuit -= ZoomIn;
     }
 
     void Start()
@@ -51,16 +54,25 @@ public class MainCamera : MonoBehaviour
             mainCamera.transform.position = Vector3.Lerp(camZoomInPosition, camZoomOutPosition, fractionDistance);
             mainCamera.orthographicSize = Mathf.Lerp(orthographicSizeZoomIn, orthographicSizeZoomOut, fractionDistance);
 
-            /*
-            // Distance moved equals elapsed time times speed..
-            float distCovered = (Time.time - startTime) * speed;
+            if (fractionDistance >= 0.9f)
+            {
+                zoomingOut = false;
+            }
+        }
 
-            // Fraction of journey completed equals current distance divided by total distance.
-            float fractionOfJourney = distCovered / journeyLength;
+        if (zoomingIn)
+        {
+            zoomDistance -= Time.deltaTime * zoomSpeed;
+            float fractionDistance = zoomDistance / zoomTotalDistance;
 
-            // Set our position as a fraction of the distance between the markers.
-            transform.position = Vector3.Lerp(startMarker.position, endMarker.position, fractionOfJourney);
-            */
+            Camera mainCamera = Camera.main;
+            mainCamera.transform.position = Vector3.Lerp(camZoomInPosition, camZoomOutPosition, fractionDistance);
+            mainCamera.orthographicSize = Mathf.Lerp(orthographicSizeZoomIn, orthographicSizeZoomOut, fractionDistance);
+
+            if (fractionDistance <= 0.0f)
+            {
+                zoomingIn = false;
+            }
         }
     }
     #endregion
@@ -69,5 +81,11 @@ public class MainCamera : MonoBehaviour
     {
         zoomingOut = true;
         zoomDistance = 0;
+    }
+
+    private void ZoomIn()
+    {
+        zoomingIn = true;
+        zoomDistance = zoomTotalDistance;
     }
 }
