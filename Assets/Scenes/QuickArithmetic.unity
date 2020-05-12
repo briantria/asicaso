@@ -4819,7 +4819,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 534047703}
-  - component: {fileID: 534047704}
   m_Layer: 0
   m_Name: Asteroid Manager
   m_TagString: Untagged
@@ -4837,17 +4836,49 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 576789884}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &534047704
+--- !u!1 &576789883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 576789884}
+  - component: {fileID: 576789885}
+  m_Layer: 0
+  m_Name: Asteroid Obstacles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &576789884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576789883}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 534047703}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &576789885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534047702}
+  m_GameObject: {fileID: 576789883}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16480c321b7336647b8790384fe2e45a, type: 3}
@@ -4855,7 +4886,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidPrefab: {fileID: 6069071482069168939, guid: f9fc6f2713f7e764ab24d34cde26f640,
     type: 3}
-  speed: 1.5
+  isBackground: 0
+  scaleRange: {x: 0.8, y: 1}
+  verticalSpan: 2.5
+  horizontalSpan: 5
+  speed: 2
+  maxAsteroidPoolCount: 10
+  clusterAsteroidCount: 1
 --- !u!1 &825591995 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 354020555102237333, guid: 434fc199cbd3fa84298a618f88c7d73a,
@@ -5026,6 +5063,7 @@ GameObject:
   - component: {fileID: 1612911061}
   - component: {fileID: 1612911060}
   - component: {fileID: 1612911062}
+  - component: {fileID: 1612911063}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5109,6 +5147,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3aa1db23a1bfe43ae0caa926475ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &1612911063
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612911059}
+  m_Enabled: 1
+  m_SortingLayerID: 1748298499
+  m_SortingLayer: 2
+  m_SortingOrder: 0
 --- !u!1001 &1881123583
 PrefabInstance:
   m_ObjectHideFlags: 0
