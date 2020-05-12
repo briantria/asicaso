@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 // enum Layer
 // {
@@ -22,14 +23,14 @@ public class AsteroidManager : MonoBehaviour
     [SerializeField]
     private GameObject asteroidPrefab;
 
-    [SerializeField]
-    private bool isBackground = true;
+    // [SerializeField]
+    // private int sortingOrder = 0;
 
     [SerializeField]
     private Vector2 scaleRange = Vector2.one;
 
     [SerializeField]
-    private float verticalSpan = 2.0f;
+    private float verticalViewPortSpan = 1.0f;
 
     [SerializeField]
     private float horizontalSpan = 2.0f;
@@ -54,7 +55,7 @@ public class AsteroidManager : MonoBehaviour
 
     #region LifeCycle
 
-    void Start()
+    void Awake()
     {
         mainCamera = Camera.main;
 
@@ -69,6 +70,12 @@ public class AsteroidManager : MonoBehaviour
         lastClusterPosition = spawnPoint;
         lastSpawnIndex = -1;
 
+        Vector3 verticalSpanScreen = mainCamera.ViewportToWorldPoint(new Vector3(0.0f, verticalViewPortSpan, 0.0f));
+        verticalViewPortSpan = verticalSpanScreen.y;
+    }
+
+    void Start()
+    {
         for (int idx = 0; idx < maxAsteroidPoolCount; ++idx)
         {
             GameObject asteroidObj = Instantiate(asteroidPrefab);
@@ -81,7 +88,21 @@ public class AsteroidManager : MonoBehaviour
 
     void Update()
     {
+        float deltaPosX = Time.deltaTime * speed;
+        lastClusterPosition.x -= deltaPosX;
 
+        for (int idx = 0; idx < maxAsteroidPoolCount; ++idx)
+        {
+            Transform t = asteroidPool[idx].transform;
+            Vector3 position = t.position;
+            position.x -= deltaPosX;
+            t.position = position;
+
+            if (position.x <= vanishingPoint.x)
+            {
+                Spawn(idx);
+            }
+        }
     }
 
     #endregion
@@ -91,6 +112,8 @@ public class AsteroidManager : MonoBehaviour
     void Spawn(int index)
     {
         Vector3 lastPosition = spawnPoint;
+        lastPosition.x -= horizontalSpan;
+
         if (lastSpawnIndex >= 0 && lastSpawnIndex < maxAsteroidPoolCount)
         {
             Transform lastTransform = asteroidPool[lastSpawnIndex].transform;
@@ -98,18 +121,24 @@ public class AsteroidManager : MonoBehaviour
         }
 
         Transform asteroidTransform = asteroidPool[index].transform;
-
-        float posX = index * horizontalSpan;
-        float posY = Random.Range(0.3f, verticalSpan);
+        float posX = lastPosition.x + horizontalSpan;
+        float posY = Random.Range(0.1f, verticalViewPortSpan);
 
         if (index % 2 == 0)
         {
             posY *= -1;
         }
 
-        if (isBackground)
+        if (clusterAsteroidCount > 1)
         {
+            float startRangeX = lastClusterPosition.x;
+            float endRangeX = startRangeX + horizontalSpan;
+            posX = Random.Range(startRangeX, endRangeX);
 
+            if (index % clusterAsteroidCount == 0)
+            {
+                lastClusterPosition.x += horizontalSpan;
+            }
         }
 
         asteroidTransform.parent = this.transform;
@@ -253,72 +282,6 @@ public class AsteroidManager : MonoBehaviour
     // }
 
     // #region Private
-
-    // private void Respawn(int index, Layer layer)
-    // {
-    //     switch (layer)
-    //     {
-    //         case Layer.Background:
-    //             {
-    //                 Debug.Log("bg index = " + index);
-
-    //                 Transform lastAsteroid = asteroidBackgroundPool[lastBgAsteroidIndex].transform;
-    //                 Vector3 lastAsteroidPosition = lastAsteroid.position;
-
-    //                 float randX = lastAsteroidPosition.x + Random.Range(0.2f, 2.0f);
-    //                 float randY = Random.Range(0.0f, 1.0f);
-    //                 if (index % 2 == 0) randY *= -1.0f;
-    //                 lastAsteroidPosition = new Vector3(randX, randY, 1);
-
-    //                 Transform respawnAsteroid = asteroidBackgroundPool[index].transform;
-    //                 respawnAsteroid.position = lastAsteroidPosition;
-
-    //                 if ((index + 1) % asteroidBGClusterCount == 0)
-    //                 {
-    //                     lastBgAsteroidIndex = index;
-    //                     Debug.Log("update bg last index = " + lastBgAsteroidIndex);
-    //                 }
-
-    //                 break;
-    //             }
-
-    //         case Layer.Background2:
-    //             {
-    //                 Transform lastAsteroid = asteroidBackgroundPool2[lastBgAsteroidIndex2].transform;
-    //                 Vector3 lastAsteroidPosition = lastAsteroid.position;
-
-    //                 Transform respawnAsteroid = asteroidBackgroundPool2[index].transform;
-    //                 float randX = lastAsteroidPosition.x + Random.Range(0.2f, 2.0f);
-    //                 float randY = Random.Range(-1.5f, 1.5f);
-    //                 lastAsteroidPosition = new Vector3(randX, randY, 1);
-
-    //                 respawnAsteroid.position = lastAsteroidPosition;
-    //                 lastBgAsteroidIndex2 = index;
-
-    //                 break;
-    //             }
-
-    //         case Layer.Foreground:
-    //             {
-    //                 break;
-    //             }
-
-    //         default:
-    //             {
-    //                 Transform lastAsteroid = asteroidPool[lastAsteroidIndex].transform;
-    //                 Vector3 lastAsteroidPosition = lastAsteroid.position;
-
-    //                 Transform respawnAsteroid = asteroidPool[index].transform;
-    //                 lastAsteroidPosition.x += spacing;
-    //                 lastAsteroidPosition.y = Random.Range(-2.5f, 2.5f);
-
-    //                 respawnAsteroid.position = lastAsteroidPosition;
-    //                 lastAsteroidIndex = index;
-
-    //                 break;
-    //             }
-    //     }
-    // }
 
     // #endregion
 }
