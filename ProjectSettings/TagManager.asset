@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: AsteroidBG
+    uniqueID: 4259816877
+    locked: 0
+  - name: Player
+    uniqueID: 1748298499
+    locked: 0
+  - name: Asteroid
+    uniqueID: 3914317095
+    locked: 0
+  - name: AsteroidFG
+    uniqueID: 3137247371
+    locked: 0
