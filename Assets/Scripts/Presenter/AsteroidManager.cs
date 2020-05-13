@@ -49,11 +49,24 @@ public class AsteroidManager : MonoBehaviour
     private Vector3 spawnPoint;
     private int lastSpawnIndex;
     private Vector3 lastClusterPosition;
+    private bool isPlaying;
     private Camera mainCamera;
 
     #endregion
 
     #region LifeCycle
+
+    void OnEnable()
+    {
+        MainMenu.OnPlay += OnPlay;
+        PauseMenu.OnQuit += OnQuit;
+    }
+
+    void OnDisable()
+    {
+        MainMenu.OnPlay -= OnPlay;
+        PauseMenu.OnQuit -= OnQuit;
+    }
 
     void Awake()
     {
@@ -72,6 +85,8 @@ public class AsteroidManager : MonoBehaviour
 
         Vector3 verticalSpanScreen = mainCamera.ViewportToWorldPoint(new Vector3(0.0f, verticalViewPortSpan, 0.0f));
         verticalViewPortSpan = verticalSpanScreen.y;
+
+        isPlaying = false;
     }
 
     void Start()
@@ -88,6 +103,11 @@ public class AsteroidManager : MonoBehaviour
 
     void Update()
     {
+        if (!isPlaying)
+        {
+            return;
+        }
+
         float deltaPosX = Time.deltaTime * speed;
         lastClusterPosition.x -= deltaPosX;
 
@@ -108,6 +128,28 @@ public class AsteroidManager : MonoBehaviour
     #endregion
 
     #region Private
+
+    void OnPlay()
+    {
+        isPlaying = true;
+    }
+
+    void OnQuit()
+    {
+        isPlaying = false;
+        this.Reset();
+    }
+
+    void Reset()
+    {
+        lastClusterPosition = spawnPoint;
+        lastSpawnIndex = -1;
+
+        for (int idx = 0; idx < maxAsteroidPoolCount; ++idx)
+        {
+            this.Spawn(idx);
+        }
+    }
 
     void Spawn(int index)
     {
@@ -149,139 +191,4 @@ public class AsteroidManager : MonoBehaviour
     }
 
     #endregion
-
-    // private List<GameObject> asteroidBackgroundPool2 = new List<GameObject>();
-    // private List<GameObject> asteroidBackgroundPool = new List<GameObject>();
-
-    // private int asteroidMaxCount = 8;
-    // private int asteroidBGCount2 = 50;
-    // private int asteroidBGCount = 100;
-    // private int asteroidBGClusterCount = 5;
-
-    // private Vector3 vanishingPoint;
-    // private int lastAsteroidIndex;
-    // private int lastBgAsteroidIndex;
-    // private int lastBgAsteroidIndex2;
-
-    // [SerializeField]
-    // private float speed = 1.0f;
-    // private float spacing = 5.0f;
-
-
-    // // TODO: 2+ layers of background asteroids
-
-    // void Start()
-    // {
-    //     Camera camera = Camera.main;
-    //     vanishingPoint = camera.ViewportToWorldPoint(Vector3.zero);
-    //     vanishingPoint.z = 0;
-    //     vanishingPoint.x -= 5.0f;
-
-    //     // background
-    //     int asteroidBGMaxCluster = asteroidBGCount / asteroidBGClusterCount;
-    //     for (int idx = 0; idx < asteroidBGMaxCluster; ++idx)
-    //     {
-    //         for (int jdx = 0; jdx < asteroidBGClusterCount; ++jdx)
-    //         {
-    //             GameObject asteroidObj = Instantiate(asteroidPrefab);
-    //             Transform asteroidTransform = asteroidObj.transform;
-    //             asteroidTransform.parent = this.transform;
-
-    //             asteroidTransform.localScale = Vector3.one * Random.Range(0.2f, 0.3f);
-
-    //             float randX = ((idx - 2) * 2.0f) + Random.Range(0.0f, 1.8f);
-    //             float randY = Random.Range(0.0f, 1.0f);
-    //             if (jdx % 2 == 0) randY *= -1.0f;
-    //             asteroidTransform.localPosition = new Vector3(randX, randY, 2);
-
-    //             //asteroidObj.SetActive(false);
-    //             asteroidObj.name = "BG Asteroid [" + ((idx * asteroidBGClusterCount) + jdx) + "]";
-    //             asteroidBackgroundPool.Add(asteroidObj);
-    //         }
-    //     }
-
-    //     lastBgAsteroidIndex = asteroidBGCount - 1;
-
-    //     // background 2
-    //     for (int idx = 0; idx < asteroidBGCount2; ++idx)
-    //     {
-    //         GameObject asteroidObj = Instantiate(asteroidPrefab);
-    //         Transform asteroidTransform = asteroidObj.transform;
-    //         asteroidTransform.parent = this.transform;
-
-    //         asteroidTransform.localScale = Vector3.one * Random.Range(0.4f, 0.6f);
-    //         float randX = ((idx - 2) * 2.0f) + Random.Range(0.0f, 1.8f);
-    //         float randY = Random.Range(-1.5f, 1.5f);
-    //         asteroidTransform.localPosition = new Vector3(randX, randY, 2);
-
-    //         //asteroidObj.SetActive(false);
-    //         asteroidObj.name = "Asteroid BG 2 [" + idx + "]";
-    //         asteroidBackgroundPool2.Add(asteroidObj);
-    //     }
-
-    //     lastBgAsteroidIndex2 = asteroidBGCount2 - 1;
-
-    //     // obstacles
-    //     for (int idx = 0; idx < asteroidMaxCount; ++idx)
-    //     {
-    //         GameObject asteroidObj = Instantiate(asteroidPrefab);
-    //         Transform asteroidTransform = asteroidObj.transform;
-    //         asteroidTransform.parent = this.transform;
-
-    //         asteroidTransform.localScale = Vector3.one * 0.8f;
-    //         asteroidTransform.localPosition = new Vector3(idx * spacing, Random.Range(-2.5f, 2.5f), 0);
-
-    //         //asteroidObj.SetActive(false);
-    //         asteroidObj.name = "Asteroid [" + idx + "]";
-    //         asteroidPool.Add(asteroidObj);
-    //     }
-
-    //     lastAsteroidIndex = asteroidMaxCount - 1;
-    // }
-
-    // void Update()
-    // {
-    //     for (int idx = 0; idx < asteroidMaxCount; ++idx)
-    //     {
-    //         Transform t = asteroidPool[idx].transform;
-    //         Vector3 position = t.position;
-    //         position.x -= Time.deltaTime * speed;
-    //         t.position = position;
-
-    //         if (position.x <= vanishingPoint.x)
-    //         {
-    //             Respawn(idx, Layer.Midground);
-    //         }
-    //     }
-
-    //     for (int idx = 0; idx < asteroidBGCount; ++idx)
-    //     {
-    //         Transform t = asteroidBackgroundPool[idx].transform;
-    //         Vector3 position = t.position;
-    //         position.x -= Time.deltaTime * speed * 0.2f;
-    //         t.position = position;
-
-    //         if (position.x <= vanishingPoint.x)
-    //         {
-    //             Respawn(idx, Layer.Background);
-    //         }
-    //     }
-
-    //     for (int idx = 0; idx < asteroidBGCount2; ++idx)
-    //     {
-    //         Transform t = asteroidBackgroundPool2[idx].transform;
-    //         Vector3 position = t.position;
-    //         position.x -= Time.deltaTime * speed * 0.4f;
-    //         t.position = position;
-
-    //         if (position.x <= vanishingPoint.x)
-    //         {
-    //             Respawn(idx, Layer.Background2);
-    //         }
-    //     }
-    // }
-
-    // #region Private
-
-    // #endregion
 }
