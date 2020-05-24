@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class PathPrediction : MonoBehaviour
 {
+    #region Properties
+
     [SerializeField]
     private Player player;
 
@@ -16,6 +18,23 @@ public class PathPrediction : MonoBehaviour
     private AsteroidManager obstacleManager;
 
     private int nextSafePointIndex = 1;
+    private bool isPlaying = false;
+
+    #endregion
+
+    #region Life Cycle
+
+    void OnEnable()
+    {
+        MainMenu.OnPlay += OnPlay;
+        PauseMenu.OnQuit += OnQuit;
+    }
+
+    void OnDisable()
+    {
+        MainMenu.OnPlay -= OnPlay;
+        PauseMenu.OnQuit -= OnQuit;
+    }
 
     void Start()
     {
@@ -29,26 +48,26 @@ public class PathPrediction : MonoBehaviour
             Debug.LogError("Missing obstacle parent transform.");
         }
 
-        // Transform obstacleManagerTransform = obstacleManager.transform;
-        // nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
     }
 
     void Update()
     {
+        if (!isPlaying)
+        {
+            return;
+        }
+
         if (player == null)
         {
-            //Debug.LogError("Missing player reference.");
             return;
         }
 
         if (obstacleManager == null)
         {
-            //Debug.LogError("Missing obstacle parent transform.");
             return;
         }
 
         Transform obstacleManagerTransform = obstacleManager.transform;
-
         if (obstacleManagerTransform.childCount < 2)
         {
             return;
@@ -60,19 +79,33 @@ public class PathPrediction : MonoBehaviour
             prevIndex = obstacleManagerTransform.childCount - 1;
         }
 
+        Vector3 playerPosition = player.transform.position;
         Vector3 prevPosition = obstacleManagerTransform.GetChild(prevIndex).transform.position;
         Vector3 nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
-        Vector3 playerPosition = player.transform.position;
-        //playerPosition.x = prevPosition.x;
-        playerPosition.y = nextSafePoint.y;
-        player.transform.position = playerPosition;
+        nextSafePoint.x = prevPosition.x;
+        player.PointToNextSafePoint(nextSafePoint);
 
-        if (prevPosition.x - playerPosition.x <= 0)
+        if (nextSafePoint.x - playerPosition.x <= 0)
         {
-            Debug.Log("update next safe point");
             nextSafePointIndex += 1;
             nextSafePointIndex = nextSafePointIndex % obstacleManagerTransform.childCount;
             nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
         }
     }
+
+    #endregion
+
+    #region Private
+
+    void OnPlay()
+    {
+        isPlaying = true;
+    }
+
+    void OnQuit()
+    {
+        isPlaying = false;
+    }
+
+    #endregion
 }

@@ -9,6 +9,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Properties
+
+    private Vector3 nextSafePoint;
+
+    #endregion
+
+    #region Life Cycle
+
     void OnEnable()
     {
 
@@ -19,15 +27,37 @@ public class Player : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-
+        nextSafePoint = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
     }
+
+    #endregion
+
+    #region Public
+
+    public void PointToNextSafePoint(Vector3 nextSafePoint)
+    {
+        if (this.nextSafePoint.y == nextSafePoint.y)
+        {
+            return;
+        }
+
+        this.nextSafePoint = nextSafePoint;
+        Vector3 playerPosition = this.transform.position;
+        playerPosition.z = 0;
+        nextSafePoint.z = 0;
+
+        Vector3 dir = (nextSafePoint - playerPosition).normalized;
+        //Debug.Log("dir: " + dir);
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.right, dir);
+        transform.rotation = rotation;
+    }
+
+    #endregion
 }
