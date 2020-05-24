@@ -87,6 +87,10 @@ public class Player : MonoBehaviour
     void OnQuit()
     {
         isPlaying = false;
+        Vector3 pos = this.transform.position;
+        pos.y = 0;
+        this.transform.position = pos;
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     #endregion
