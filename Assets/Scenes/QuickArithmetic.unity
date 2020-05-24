@@ -5214,6 +5214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3aa1db23a1bfe43ae0caa926475ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
 --- !u!210 &1612911063
 SortingGroup:
   m_ObjectHideFlags: 0

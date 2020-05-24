@@ -11,7 +11,11 @@ public class Player : MonoBehaviour
 {
     #region Properties
 
+    [SerializeField]
+    private float speed = 2.0f;
+
     private Vector3 nextSafePoint;
+    private bool isPlaying;
 
     #endregion
 
@@ -19,12 +23,14 @@ public class Player : MonoBehaviour
 
     void OnEnable()
     {
-
+        MainMenu.OnPlay += OnPlay;
+        PauseMenu.OnQuit += OnQuit;
     }
 
     void OnDisable()
     {
-
+        MainMenu.OnPlay -= OnPlay;
+        PauseMenu.OnQuit -= OnQuit;
     }
 
     void Start()
@@ -34,7 +40,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (!isPlaying)
+        {
+            return;
+        }
 
+        float deltaPosY = Time.deltaTime * speed;
+        Vector3 playerPosition = this.transform.position;
+        Vector3 nextPos = playerPosition;
+        nextPos.y = this.nextSafePoint.y;
+        playerPosition = Vector3.MoveTowards(playerPosition, nextPos, Time.deltaTime * speed);
+        this.transform.position = playerPosition;
     }
 
     #endregion
@@ -43,10 +59,10 @@ public class Player : MonoBehaviour
 
     public void PointToNextSafePoint(Vector3 nextSafePoint)
     {
-        if (this.nextSafePoint.y == nextSafePoint.y)
-        {
-            return;
-        }
+        // if (this.nextSafePoint.y == nextSafePoint.y)
+        // {
+        //     return;
+        // }
 
         this.nextSafePoint = nextSafePoint;
         Vector3 playerPosition = this.transform.position;
@@ -57,6 +73,20 @@ public class Player : MonoBehaviour
         //Debug.Log("dir: " + dir);
         Quaternion rotation = Quaternion.FromToRotation(Vector3.right, dir);
         transform.rotation = rotation;
+    }
+
+    #endregion
+
+    #region Private
+
+    void OnPlay()
+    {
+        isPlaying = true;
+    }
+
+    void OnQuit()
+    {
+        isPlaying = false;
     }
 
     #endregion
