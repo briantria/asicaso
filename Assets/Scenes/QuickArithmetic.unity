@@ -4904,8 +4904,9 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 6069071482069168939, guid: f9fc6f2713f7e764ab24d34cde26f640,
     type: 3}
   scaleRange: {x: 1, y: 1.2}
-  verticalViewPortSpan: 0.8
-  horizontalSpan: 5
+  verticalViewPortSpan: 0.65
+  verticalMidGap: 0.55
+  horizontalSpan: 6
   speed: 2.5
   maxAsteroidPoolCount: 10
   clusterAsteroidCount: 1
@@ -5108,7 +5109,8 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 5010208247851490739, guid: d776b05da4088cb4ba6fdb4aac82462c,
     type: 3}
   scaleRange: {x: 0.4, y: 0.5}
-  verticalViewPortSpan: 0.65
+  verticalViewPortSpan: 0.6
+  verticalMidGap: 0.51
   horizontalSpan: 2
   speed: 1.7
   maxAsteroidPoolCount: 50
@@ -5273,6 +5275,7 @@ MonoBehaviour:
     type: 3}
   scaleRange: {x: 0.2, y: 0.3}
   verticalViewPortSpan: 0.55
+  verticalMidGap: 0.51
   horizontalSpan: 1
   speed: 0.8
   maxAsteroidPoolCount: 50

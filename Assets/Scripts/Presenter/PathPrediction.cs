@@ -83,13 +83,18 @@ public class PathPrediction : MonoBehaviour
         Vector3 prevPosition = obstacleManagerTransform.GetChild(prevIndex).transform.position;
         Vector3 nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
         nextSafePoint.x = prevPosition.x;
-        player.PointToNextSafePoint(nextSafePoint);
 
-        if (nextSafePoint.x - playerPosition.x <= 0)
+        if (nextSafePoint.x - playerPosition.x <= -1)
         {
             nextSafePointIndex += 1;
             nextSafePointIndex = nextSafePointIndex % obstacleManagerTransform.childCount;
             nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
+        }
+
+
+        if (nextSafePoint.x - playerPosition.x > 0)
+        {
+            player.PointToNextSafePoint(nextSafePoint);
         }
     }
 
