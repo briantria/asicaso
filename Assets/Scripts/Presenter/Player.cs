@@ -70,7 +70,6 @@ public class Player : MonoBehaviour
         nextSafePoint.z = 0;
 
         Vector3 dir = (nextSafePoint - playerPosition).normalized;
-        //Debug.Log("dir: " + dir);
         Quaternion rotation = Quaternion.FromToRotation(Vector3.right, dir);
         transform.rotation = rotation;
     }
