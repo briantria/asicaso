@@ -57,7 +57,7 @@ SortingGroup:
   m_GameObject: {fileID: 6069071482069168939}
   m_Enabled: 1
   m_SortingLayerID: -380650201
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
 --- !u!1 &6069071483433645373
 GameObject:
@@ -286,7 +286,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9e19d5e7f31488d418f885515817eb7c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23584908, g: 0.20803669, b: 0.20803669, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

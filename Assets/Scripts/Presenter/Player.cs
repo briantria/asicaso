@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
 
         Vector3 dir = (nextSafePoint - playerPosition).normalized;
         Quaternion rotation = Quaternion.FromToRotation(Vector3.right, dir);
-        transform.rotation = rotation;
+        //transform.rotation = rotation;
     }
 
     #endregion

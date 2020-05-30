@@ -91,7 +91,6 @@ public class PathPrediction : MonoBehaviour
             nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
         }
 
-
         if (nextSafePoint.x - playerPosition.x > 0)
         {
             player.PointToNextSafePoint(nextSafePoint);
