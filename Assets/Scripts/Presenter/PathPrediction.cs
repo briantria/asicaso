@@ -19,6 +19,7 @@ public class PathPrediction : MonoBehaviour
 
     private int nextSafePointIndex = 1;
     private bool isPlaying = false;
+    private bool didAnswer = false;
 
     #endregion
 
@@ -28,12 +29,16 @@ public class PathPrediction : MonoBehaviour
     {
         MainMenu.OnPlay += OnPlay;
         PauseMenu.OnQuit += OnQuit;
+        GameManager.OnCorrectAnswer += OnCorrectAnswer;
+        GameManager.OnWrongAnswer += OnWrongAnswer;
     }
 
     void OnDisable()
     {
         MainMenu.OnPlay -= OnPlay;
         PauseMenu.OnQuit -= OnQuit;
+        GameManager.OnCorrectAnswer -= OnCorrectAnswer;
+        GameManager.OnWrongAnswer -= OnWrongAnswer;
     }
 
     void Start()
@@ -86,20 +91,39 @@ public class PathPrediction : MonoBehaviour
 
         if (nextSafePoint.x - playerPosition.x <= -1)
         {
-            nextSafePointIndex += 1;
-            nextSafePointIndex = nextSafePointIndex % obstacleManagerTransform.childCount;
-            nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
+            // Time.timeScale = 1.0f;
+
+            // if (!didAnswer)
+            // {
+            //     UpdateNextSafePoint();
+            //     // DO DAMAGE
+            // }
+            // else
+            // {
+            //     // reset
+            //     didAnswer = false;
+            // }
+
+            nextSafePoint = UpdateNextSafePoint();
         }
 
-        if (nextSafePoint.x - playerPosition.x > 0)
-        {
-            player.PointToNextSafePoint(nextSafePoint);
-        }
+        // if (nextSafePoint.x - playerPosition.x > 0)
+        // {
+        //     player.PointToNextSafePoint(nextSafePoint);
+        // }
     }
 
     #endregion
 
     #region Private
+
+    Vector3 UpdateNextSafePoint()
+    {
+        Transform obstacleManagerTransform = obstacleManager.transform;
+        nextSafePointIndex += 1;
+        nextSafePointIndex = nextSafePointIndex % obstacleManagerTransform.childCount;
+        return obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
+    }
 
     void OnPlay()
     {
@@ -109,6 +133,32 @@ public class PathPrediction : MonoBehaviour
     void OnQuit()
     {
         isPlaying = false;
+    }
+
+    void OnCorrectAnswer()
+    {
+        didAnswer = true;
+        // Time.timeScale = 2.0f;
+        // Vector3 nextSafePoint = UpdateNextSafePoint();
+        // player.PointToNextSafePoint(nextSafePoint);
+
+        Vector3 playerPosition = player.transform.position;
+        Transform obstacleManagerTransform = obstacleManager.transform;
+        Vector3 nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
+
+        if (nextSafePoint.x - playerPosition.x > 0)
+        {
+            player.PointToNextSafePoint(nextSafePoint);
+        }
+    }
+
+    void OnWrongAnswer()
+    {
+        // didAnswer = true;
+        // Time.timeScale = 2.0f;
+        // UpdateNextSafePoint(); // skip to hit the asteroid
+        // Vector3 nextSafePoint = UpdateNextSafePoint();
+        // player.PointToNextSafePoint(nextSafePoint);
     }
 
     #endregion
