@@ -1,5 +1,5 @@
 /* author: Brian Tria
- * created: May 08, 2019
+ * created: May 08, 2020
  * description: 
  */
 
@@ -31,6 +31,9 @@ public class AsteroidManager : MonoBehaviour
 
     [SerializeField]
     private float verticalViewPortSpan = 1.0f;
+
+    [SerializeField]
+    private float verticalMidGap = 0.51f;
 
     [SerializeField]
     private float horizontalSpan = 2.0f;
@@ -85,6 +88,9 @@ public class AsteroidManager : MonoBehaviour
 
         Vector3 verticalSpanScreen = mainCamera.ViewportToWorldPoint(new Vector3(0.0f, verticalViewPortSpan, 0.0f));
         verticalViewPortSpan = verticalSpanScreen.y;
+
+        Vector3 verticalMidGapScreen = mainCamera.ViewportToWorldPoint(new Vector3(0.0f, verticalMidGap, 0.0f));
+        verticalMidGap = verticalMidGapScreen.y;
 
         isPlaying = false;
     }
@@ -164,7 +170,7 @@ public class AsteroidManager : MonoBehaviour
 
         Transform asteroidTransform = asteroidPool[index].transform;
         float posX = lastPosition.x + horizontalSpan;
-        float posY = Random.Range(0.1f, verticalViewPortSpan);
+        float posY = Random.Range(verticalMidGap, verticalViewPortSpan);
 
         if (index % 2 == 0)
         {

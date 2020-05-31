@@ -4819,6 +4819,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 534047703}
+  - component: {fileID: 534047704}
   m_Layer: 0
   m_Name: Asteroid Manager
   m_TagString: Untagged
@@ -4843,6 +4844,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534047704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534047702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceaf146f6cfe67f449bf2ccf24a8ccbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1612911062}
+  obstacleManager: {fileID: 576789885}
 --- !u!1 &576789883
 GameObject:
   m_ObjectHideFlags: 0
@@ -4889,9 +4904,10 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 6069071482069168939, guid: f9fc6f2713f7e764ab24d34cde26f640,
     type: 3}
   scaleRange: {x: 1, y: 1.2}
-  verticalViewPortSpan: 0.8
-  horizontalSpan: 5
-  speed: 2.5
+  verticalViewPortSpan: 0.65
+  verticalMidGap: 0.55
+  horizontalSpan: 6
+  speed: 5
   maxAsteroidPoolCount: 10
   clusterAsteroidCount: 1
 --- !u!1 &825591995 stripped
@@ -5093,9 +5109,10 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 5010208247851490739, guid: d776b05da4088cb4ba6fdb4aac82462c,
     type: 3}
   scaleRange: {x: 0.4, y: 0.5}
-  verticalViewPortSpan: 0.65
+  verticalViewPortSpan: 0.6
+  verticalMidGap: 0.51
   horizontalSpan: 2
-  speed: 1.7
+  speed: 3
   maxAsteroidPoolCount: 50
   clusterAsteroidCount: 2
 --- !u!4 &1502810386 stripped
@@ -5199,6 +5216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3aa1db23a1bfe43ae0caa926475ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
 --- !u!210 &1612911063
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -5257,8 +5275,9 @@ MonoBehaviour:
     type: 3}
   scaleRange: {x: 0.2, y: 0.3}
   verticalViewPortSpan: 0.55
+  verticalMidGap: 0.51
   horizontalSpan: 1
-  speed: 0.8
+  speed: 2
   maxAsteroidPoolCount: 50
   clusterAsteroidCount: 2
 --- !u!1001 &1881123583
@@ -5538,8 +5557,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.25
-      minScalar: 0.4
+      scalar: 0.6
+      minScalar: 0.45
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5655,7 +5674,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.1
-      minScalar: 0.2
+      minScalar: 0.15
       maxCurve:
         serializedVersion: 2
         m_Curve:
