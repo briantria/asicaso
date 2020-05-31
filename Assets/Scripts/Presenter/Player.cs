@@ -51,6 +51,18 @@ public class Player : MonoBehaviour
         nextPos.y = this.nextSafePoint.y;
         playerPosition = Vector3.MoveTowards(playerPosition, nextPos, Time.deltaTime * speed);
         this.transform.position = playerPosition;
+
+        if (this.nextSafePoint.y == playerPosition.y)
+        {
+            Quaternion rotation = Quaternion.FromToRotation(Vector3.right, Vector3.right);
+            transform.rotation = rotation;
+        }
+        else
+        {
+            Vector3 dir = (this.nextSafePoint - playerPosition).normalized;
+            Quaternion rotation = Quaternion.FromToRotation(Vector3.right, dir);
+            transform.rotation = rotation;
+        }
     }
 
     #endregion
@@ -59,19 +71,14 @@ public class Player : MonoBehaviour
 
     public void PointToNextSafePoint(Vector3 nextSafePoint)
     {
-        // if (this.nextSafePoint.y == nextSafePoint.y)
-        // {
-        //     return;
-        // }
+        if (this.nextSafePoint.y == nextSafePoint.y)
+        {
+            return;
+        }
 
         this.nextSafePoint = nextSafePoint;
         Vector3 playerPosition = this.transform.position;
-        playerPosition.z = 0;
-        nextSafePoint.z = 0;
-
-        Vector3 dir = (nextSafePoint - playerPosition).normalized;
-        Quaternion rotation = Quaternion.FromToRotation(Vector3.right, dir);
-        //transform.rotation = rotation;
+        this.nextSafePoint.z = playerPosition.z;
     }
 
     #endregion
