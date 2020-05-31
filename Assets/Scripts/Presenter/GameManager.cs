@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public static event GameAction OnDisplayNextChallenge;
     public static event GameAction OnAddScore;
     public static event GameAction OnGameOver;
+    public static event GameAction OnCorrectAnswer;
+    public static event GameAction OnWrongAnswer;
 
     #endregion
 
@@ -53,31 +55,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     #region Private Methods
 
-    void checkAnswer(float option)
+    void CheckAnswer(float option)
     {
         MathProblem mathProblem = currentMathProblem.RuntimeValue;
         float answer = mathProblem.answer;
 
         if (option == answer)
         {
-            loadNextChallenge();
+            LoadNextChallenge();
+
+            if (OnCorrectAnswer != null)
+            {
+                OnCorrectAnswer();
+            }
         }
         else
         {
             // Debug.LogError("Wrong answer.");
-            doDamage();
+            DoDamage();
         }
     }
 
-    void loadNextChallenge()
+    void LoadNextChallenge()
     {
         MathProblem mathProblem = problemRandomizer.getNextMathProblem();
 
         if (String.IsNullOrEmpty(mathProblem.statement))
         {
-            loadNextLevel();
+            LoadNextLevel();
             return;
         }
 
@@ -88,7 +96,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void loadNextLevel()
+    void LoadNextLevel()
     {
         gameLevel++;
         problemRandomizer.resetProblemList();
@@ -101,7 +109,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void doDamage()
+    void DoDamage()
     {
         lifeCount--;
 
@@ -111,8 +119,10 @@ public class GameManager : MonoBehaviour
             {
                 OnGameOver();
             }
-
-            return;
+        }
+        else if (OnWrongAnswer != null)
+        {
+            OnWrongAnswer();
         }
     }
 
@@ -130,7 +140,7 @@ public class GameManager : MonoBehaviour
         options[1] = mathProblem.option1;
         options[2] = mathProblem.option2;
 
-        checkAnswer(options[optionIndex]);
+        CheckAnswer(options[optionIndex]);
     }
 
     public void Pause()
