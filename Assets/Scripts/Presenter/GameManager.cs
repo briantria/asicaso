@@ -55,6 +55,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Debug.Log("option 1");
+            ChooseOption(1);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.RightControl))
+        {
+            Debug.Log("option 2");
+            ChooseOption(2);
+        }
+    }
 
     #region Private Methods
 
