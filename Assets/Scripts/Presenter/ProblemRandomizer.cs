@@ -151,6 +151,7 @@ public class ProblemRandomizer
             mathOperator = Random.Range(1, 2);
         }
 
+
         switch (mathOperator)
         {
             case 1: return GenerateAdditionProblem(level);
@@ -185,7 +186,7 @@ public class ProblemRandomizer
         return mathProblem;
     }
 
-    MathProblem GenerateAdditionProblem(int level)
+    Vector2 GenerateGivens(int level)
     {
         int item1 = Random.Range(level, level + LevelRandomRange);
 
@@ -193,9 +194,15 @@ public class ProblemRandomizer
         int halfLevel = level / 2;
         int item2 = Random.Range(halfLevel, halfLevel + LevelRandomRange);
 
+        return new Vector2(item1, item2);
+    }
+
+    MathProblem GenerateAdditionProblem(int level)
+    {
+        Vector2 givens = GenerateGivens(level);
         MathProblem mathProblem = new MathProblem();
-        mathProblem.statement = item1 + " + " + item2;
-        mathProblem.answer = item1 + item2;
+        mathProblem.statement = givens.x + " + " + givens.y;
+        mathProblem.answer = givens.x + givens.y;
         mathProblem = AssignOptions(level, mathProblem);
 
         return mathProblem;
@@ -203,15 +210,10 @@ public class ProblemRandomizer
 
     MathProblem GenerateSubtractionProblem(int level)
     {
-        int item1 = Random.Range(level, level + LevelRandomRange);
-
-        // let's try to slow down difficulty progression
-        int halfLevel = level / 2;
-        int item2 = Random.Range(halfLevel, halfLevel + LevelRandomRange);
-
+        Vector2 givens = GenerateGivens(level);
         MathProblem mathProblem = new MathProblem();
-        mathProblem.statement = item1 + " - " + item2;
-        mathProblem.answer = item1 - item2;
+        mathProblem.statement = givens.x + " - " + givens.y;
+        mathProblem.answer = givens.x - givens.y;
         mathProblem = AssignOptions(level, mathProblem);
 
         return mathProblem;
@@ -219,7 +221,11 @@ public class ProblemRandomizer
 
     MathProblem GenerateMultiplicationProblem(int level)
     {
+        Vector2 givens = GenerateGivens(level);
         MathProblem mathProblem = new MathProblem();
+        mathProblem.statement = givens.x + " x " + givens.y;
+        mathProblem.answer = givens.x * givens.y;
+        mathProblem = AssignOptions(level, mathProblem);
 
         return mathProblem;
     }
