@@ -27,6 +27,20 @@ public class ProblemRandomizer
 
     public void GenerateProblemList(int level)
     {
+        if (problemList == null)
+        {
+            problemList = new List<MathProblem>();
+        }
+
+        problemList.Add(GenerateMathProblem(level));
+        if (problemList.Count < MaxProblemPerLevel)
+        {
+            GenerateProblemList(level);
+        }
+
+        // ---------
+        return;
+
         int mathOperator = Random.Range(1, 4);
         int item1 = Random.Range(level, level + LevelRandomRange);
         int item2 = Random.Range(level, level + LevelRandomRange);
@@ -116,25 +130,89 @@ public class ProblemRandomizer
 
     #region Private
 
-    MathProblem GetMathProblem(int level)
+    MathProblem GenerateMathProblem(int level)
     {
-        MathProblem mathProblem = new MathProblem();
+        // addition only
+        int mathOperator = 1;
 
-        // TODO: rendom operator
+        // all operations unlocked
+        if (level > 30)
+        {
+            mathOperator = Random.Range(1, 4);
+        }
+        // unlock multiplication
+        else if (level > 20)
+        {
+            mathOperator = Random.Range(1, 3);
+        }
+        // unlock subtraction
+        else if (level > 10)
+        {
+            mathOperator = Random.Range(1, 2);
+        }
+
+        switch (mathOperator)
+        {
+            case 1: return GenerateAdditionProblem(level);
+            case 2: return GenerateSubtractionProblem(level);
+            case 3: return GenerateMultiplicationProblem(level);
+            default: return GenerateDivisionProblem(level);
+        }
+    }
+
+    MathProblem AssignOptions(int level, MathProblem mathProblem)
+    {
+        int offset = 0;
+        while (offset == 0)
+        {
+            // as the level goes up, the difference between the options decreases
+            // the idea is to gradually make the correct answer less obvious
+            offset = (10 / level) + 2;
+            offset = Random.Range(-offset, offset);
+        }
+
+        if (Random.value > 0.5f)
+        {
+            mathProblem.option1 = mathProblem.answer;
+            mathProblem.option2 = mathProblem.answer + offset;
+        }
+        else
+        {
+            mathProblem.option1 = mathProblem.answer + offset;
+            mathProblem.option2 = mathProblem.answer;
+        }
 
         return mathProblem;
     }
 
     MathProblem GenerateAdditionProblem(int level)
     {
+        int item1 = Random.Range(level, level + LevelRandomRange);
+
+        // let's try to slow down difficulty progression
+        int halfLevel = level / 2;
+        int item2 = Random.Range(halfLevel, halfLevel + LevelRandomRange);
+
         MathProblem mathProblem = new MathProblem();
+        mathProblem.statement = item1 + " + " + item2;
+        mathProblem.answer = item1 + item2;
+        mathProblem = AssignOptions(level, mathProblem);
 
         return mathProblem;
     }
 
     MathProblem GenerateSubtractionProblem(int level)
     {
+        int item1 = Random.Range(level, level + LevelRandomRange);
+
+        // let's try to slow down difficulty progression
+        int halfLevel = level / 2;
+        int item2 = Random.Range(halfLevel, halfLevel + LevelRandomRange);
+
         MathProblem mathProblem = new MathProblem();
+        mathProblem.statement = item1 + " - " + item2;
+        mathProblem.answer = item1 - item2;
+        mathProblem = AssignOptions(level, mathProblem);
 
         return mathProblem;
     }
