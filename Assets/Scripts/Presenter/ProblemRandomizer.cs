@@ -37,78 +37,6 @@ public class ProblemRandomizer
         {
             GenerateProblemList(level);
         }
-
-        // ---------
-        return;
-
-        int mathOperator = Random.Range(1, 4);
-        int item1 = Random.Range(level, level + LevelRandomRange);
-        int item2 = Random.Range(level, level + LevelRandomRange);
-        MathProblem mathProblem = new MathProblem();
-
-        switch (mathOperator)
-        {
-            case 1:
-                {
-                    mathProblem.statement = item1 + " + " + item2;
-                    mathProblem.answer = item1 + item2;
-                    break;
-                }
-            case 2:
-                {
-                    mathProblem.statement = item1 + " - " + item2;
-                    mathProblem.answer = item1 - item2;
-                    break;
-                }
-            case 3:
-                {
-                    mathProblem.statement = item1 + " x " + item2;
-                    mathProblem.answer = item1 * item2;
-                    break;
-                }
-            default:
-                {
-                    if (item2 == 0 || item1 % item2 > 0)
-                    {
-                        GenerateProblemList(level);
-                        return;
-                    }
-
-                    mathProblem.statement = item1 + " ÷ " + item2;
-                    mathProblem.answer = item1 / item2;
-                    break;
-                }
-        }
-
-        int offset = 0;
-        while (offset == 0)
-        {
-            offset = Random.Range(-2, 2);
-        }
-
-        if (Random.value > 0.5f)
-        {
-            mathProblem.option1 = mathProblem.answer;
-            mathProblem.option2 = mathProblem.answer + offset;
-        }
-        else
-        {
-            mathProblem.option1 = mathProblem.answer + offset;
-            mathProblem.option2 = mathProblem.answer;
-        }
-
-        if (problemList.Contains(mathProblem))
-        {
-            GenerateProblemList(level);
-            return;
-        }
-
-        problemList.Add(mathProblem);
-
-        if (problemList.Count < MaxProblemPerLevel)
-        {
-            GenerateProblemList(level);
-        }
     }
 
     public MathProblem GetNextMathProblem()
@@ -151,6 +79,8 @@ public class ProblemRandomizer
             mathOperator = Random.Range(1, 2);
         }
 
+        // for debugging
+        // mathOperator = 4;
 
         switch (mathOperator)
         {
@@ -232,7 +162,31 @@ public class ProblemRandomizer
 
     MathProblem GenerateDivisionProblem(int level)
     {
+        /*
+        Division
+        1. Randomize 2nd given
+        2. Randomize answer
+        3. 1st Given = 2nd given x answer
+        */
+
+        Vector2 givens = GenerateGivens(level);
+        int trialCount = 0;
+        while (givens.y == 0 && trialCount > 10)
+        {
+            GenerateGivens(level);
+            trialCount++;
+        }
+
+        if (givens.y == 0)
+        {
+            givens.y = level;
+        }
+
+        int item1 = (int)(givens.x * givens.y);
         MathProblem mathProblem = new MathProblem();
+        mathProblem.statement = item1 + " ÷ " + givens.y;
+        mathProblem.answer = givens.x;
+        mathProblem = AssignOptions(level, mathProblem);
 
         return mathProblem;
     }
