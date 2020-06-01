@@ -13,17 +13,19 @@ public class ProblemRandomizer
     const int LevelRandomRange = 3;
     private List<MathProblem> problemList;
 
+    #region Public
+
     public ProblemRandomizer()
     {
         problemList = new List<MathProblem>();
     }
 
-    public void resetProblemList()
+    public void ResetProblemList()
     {
         problemList = new List<MathProblem>();
     }
 
-    public void generateProblemList(int level)
+    public void GenerateProblemList(int level)
     {
         int mathOperator = Random.Range(1, 4);
         int item1 = Random.Range(level, level + LevelRandomRange);
@@ -54,7 +56,7 @@ public class ProblemRandomizer
                 {
                     if (item2 == 0 || item1 % item2 > 0)
                     {
-                        generateProblemList(level);
+                        GenerateProblemList(level);
                         return;
                     }
 
@@ -83,7 +85,7 @@ public class ProblemRandomizer
 
         if (problemList.Contains(mathProblem))
         {
-            generateProblemList(level);
+            GenerateProblemList(level);
             return;
         }
 
@@ -91,11 +93,11 @@ public class ProblemRandomizer
 
         if (problemList.Count < MaxProblemPerLevel)
         {
-            generateProblemList(level);
+            GenerateProblemList(level);
         }
     }
 
-    public MathProblem getNextMathProblem()
+    public MathProblem GetNextMathProblem()
     {
         MathProblem mathProblem = new MathProblem();
 
@@ -109,4 +111,47 @@ public class ProblemRandomizer
 
         return mathProblem;
     }
+
+    #endregion
+
+    #region Private
+
+    MathProblem GetMathProblem(int level)
+    {
+        MathProblem mathProblem = new MathProblem();
+
+        // TODO: rendom operator
+
+        return mathProblem;
+    }
+
+    MathProblem GenerateAdditionProblem(int level)
+    {
+        MathProblem mathProblem = new MathProblem();
+
+        return mathProblem;
+    }
+
+    MathProblem GenerateSubtractionProblem(int level)
+    {
+        MathProblem mathProblem = new MathProblem();
+
+        return mathProblem;
+    }
+
+    MathProblem GenerateMultiplicationProblem(int level)
+    {
+        MathProblem mathProblem = new MathProblem();
+
+        return mathProblem;
+    }
+
+    MathProblem GenerateDivisionProblem(int level)
+    {
+        MathProblem mathProblem = new MathProblem();
+
+        return mathProblem;
+    }
+
+    #endregion
 }
