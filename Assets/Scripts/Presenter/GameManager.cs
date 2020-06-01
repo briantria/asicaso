@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public delegate void GameAction();
     public static event GameAction OnGameStart;
     public static event GameAction OnDisplayNextChallenge;
+    public static event GameAction OnLevelUp;
     public static event GameAction OnAddScore;
     public static event GameAction OnGameOver;
     public static event GameAction OnCorrectAnswer;
@@ -25,6 +26,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private MathProblemVariable currentMathProblem;
+
+    [SerializeField]
+    private IntVariable currentLevel;
 
     private ProblemRandomizer problemRandomizer;
     private int gameLevel;
@@ -41,12 +45,18 @@ public class GameManager : MonoBehaviour
         lifeCount = 3;
         gameLevel = 1;
         problemRandomizer = new ProblemRandomizer();
-        problemRandomizer.generateProblemList(gameLevel);
-        currentMathProblem.RuntimeValue = problemRandomizer.getNextMathProblem();
+        problemRandomizer.GenerateProblemList(gameLevel);
+        currentMathProblem.RuntimeValue = problemRandomizer.GetNextMathProblem();
+        currentLevel.RuntimeValue = gameLevel;
 
         if (OnGameStart != null)
         {
             OnGameStart();
+        }
+
+        if (OnLevelUp != null)
+        {
+            OnLevelUp();
         }
 
         if (OnDisplayNextChallenge != null)
@@ -96,7 +106,7 @@ public class GameManager : MonoBehaviour
 
     void LoadNextChallenge()
     {
-        MathProblem mathProblem = problemRandomizer.getNextMathProblem();
+        MathProblem mathProblem = problemRandomizer.GetNextMathProblem();
 
         if (String.IsNullOrEmpty(mathProblem.statement))
         {
@@ -114,9 +124,16 @@ public class GameManager : MonoBehaviour
     void LoadNextLevel()
     {
         gameLevel++;
-        problemRandomizer.resetProblemList();
-        problemRandomizer.generateProblemList(gameLevel);
-        currentMathProblem.RuntimeValue = problemRandomizer.getNextMathProblem();
+        problemRandomizer.ResetProblemList();
+        problemRandomizer.GenerateProblemList(gameLevel);
+        currentMathProblem.RuntimeValue = problemRandomizer.GetNextMathProblem();
+
+        currentLevel.RuntimeValue = gameLevel;
+
+        if (OnLevelUp != null)
+        {
+            OnLevelUp();
+        }
 
         if (OnDisplayNextChallenge != null)
         {
@@ -148,7 +165,7 @@ public class GameManager : MonoBehaviour
     public void ChooseOption(int optionIndex)
     {
         MathProblem mathProblem = currentMathProblem.RuntimeValue;
-        Debug.Log("choose option " + optionIndex);
+        // Debug.Log("choose option " + optionIndex);
 
         // 0: padding; 1: option1; 2: option2
         float[] options = new float[3];

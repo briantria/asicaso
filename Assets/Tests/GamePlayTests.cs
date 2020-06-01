@@ -27,11 +27,11 @@ namespace Tests
         public IEnumerator GenerateProblemList()
         {
             ProblemRandomizer problemRandomizer = new ProblemRandomizer();
-            problemRandomizer.generateProblemList(1);
+            problemRandomizer.GenerateProblemList(1);
 
             int mathProblemCount = 0;
             List<MathProblem> mathProblemList = new List<MathProblem>();
-            MathProblem mathProblem = problemRandomizer.getNextMathProblem();
+            MathProblem mathProblem = problemRandomizer.GetNextMathProblem();
             Assert.IsNotEmpty(mathProblem.statement, "initial math problem statement should not be empty.");
 
             while (!String.IsNullOrEmpty(mathProblem.statement))
@@ -40,7 +40,7 @@ namespace Tests
                 mathProblemList.Add(mathProblem);
                 TestContext.WriteLine(mathProblem.statement + " = [a] " + mathProblem.option1 + ", [b] " + mathProblem.option2);
                 Assert.AreNotEqual(mathProblem.option1, mathProblem.option2, "options should never be equal.");
-                mathProblem = problemRandomizer.getNextMathProblem();
+                mathProblem = problemRandomizer.GetNextMathProblem();
                 Assert.IsFalse(mathProblemList.Contains(mathProblem));
             }
 
