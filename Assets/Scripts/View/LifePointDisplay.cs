@@ -24,12 +24,14 @@ public class LifePointDisplay : MonoBehaviour
     {
         // Debug.Log("set onReset life");
         LifePointSystem.OnReset += ResetLifePoints;
+        LifePointSystem.OnDamage += ResetLifePoints;
     }
 
     void OnDisable()
     {
         // Debug.Log("remove onReset life");
         LifePointSystem.OnReset -= ResetLifePoints;
+        LifePointSystem.OnDamage -= ResetLifePoints;
     }
 
     #endregion
