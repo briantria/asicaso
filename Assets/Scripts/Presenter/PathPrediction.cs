@@ -17,6 +17,9 @@ public class PathPrediction : MonoBehaviour
     [SerializeField]
     private AsteroidManager obstacleManager;
 
+    [SerializeField]
+    private IntVariable remainingLifePoints;
+
     private int nextSafePointIndex = 1;
     private bool isPlaying = false;
 
