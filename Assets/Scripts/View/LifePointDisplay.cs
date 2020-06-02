@@ -22,13 +22,13 @@ public class LifePointDisplay : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("set onReset life");
+        // Debug.Log("set onReset life");
         LifePointSystem.OnReset += ResetLifePoints;
     }
 
     void OnDisable()
     {
-        Debug.Log("remove onReset life");
+        // Debug.Log("remove onReset life");
         LifePointSystem.OnReset -= ResetLifePoints;
     }
 
@@ -38,7 +38,7 @@ public class LifePointDisplay : MonoBehaviour
 
     void ResetLifePoints(int lifePoints)
     {
-        Debug.Log("onReset life");
+        // Debug.Log("onReset life");
         if (lifePointPrefab == null)
         {
             Debug.LogError("Missing life point prefab reference.");
@@ -50,7 +50,7 @@ public class LifePointDisplay : MonoBehaviour
         {
             if (idx < lifePointPool.Count)
             {
-                Debug.Log("activate life point");
+                // Debug.Log("activate life point");
                 lifePointPool[idx].SetActive(true);
                 continue;
             }
@@ -59,11 +59,15 @@ public class LifePointDisplay : MonoBehaviour
             lifePointObj.name = "[" + idx + "]";
             lifePointObj.SetActive(true);
             lifePointPool.Add(lifePointObj);
+            lifePointObj.transform.SetParent(this.transform);
 
             RectTransform rTransform = lifePointObj.GetComponent<RectTransform>();
-            lifePointObj.transform.SetParent(this.transform);
-            Debug.Log("set parent");
-            // todo: POSITION
+
+            Vector3 offset = Vector3.zero;
+            offset.x += (rTransform.sizeDelta.x * 0.7f * idx);
+
+            rTransform.localPosition = offset;
+            rTransform.offsetMin = new Vector2(rTransform.offsetMin.x, 0);
         }
 
         for (; idx < lifePointPool.Count; ++idx)

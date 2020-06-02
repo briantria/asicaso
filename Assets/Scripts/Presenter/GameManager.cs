@@ -31,9 +31,6 @@ public class GameManager : MonoBehaviour
     private IntVariable currentLevel;
 
     [SerializeField]
-    private IntVariable remainingLifePoints;
-
-    [SerializeField]
     private LifePointSystem lifePointSystem;
 
     private ProblemRandomizer problemRandomizer;
@@ -59,7 +56,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("reset life");
+        // Debug.Log("reset life");
         lifePointSystem.Reset();
         gameLevel = 1;
         problemRandomizer = new ProblemRandomizer();

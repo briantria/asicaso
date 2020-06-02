@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169244b90bd3f654294dd2d591da1bbf, type: 3}
   m_Name: LifePointSystem
   m_EditorClassIdentifier: 
-  InitialLifePoints: 0
+  InitialLifePoints: 3
