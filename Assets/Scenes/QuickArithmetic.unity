@@ -4858,7 +4858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1612911062}
   obstacleManager: {fileID: 576789885}
-  remainingLifePoints: {fileID: 0}
+  lifePointSystem: {fileID: 11400000, guid: 4c96b9950d1f0914a8143596c38ce39d, type: 2}
 --- !u!1 &576789883
 GameObject:
   m_ObjectHideFlags: 0
@@ -4929,8 +4929,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b006038c61a21c04cadae405b1a746c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDuration: 0.2
-  shakeAmount: 0.2
+  shakeDuration: 0.1
+  shakeAmount: 0.1
 --- !u!114 &825591999
 MonoBehaviour:
   m_ObjectHideFlags: 0
