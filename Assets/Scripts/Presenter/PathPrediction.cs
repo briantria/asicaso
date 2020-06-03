@@ -17,6 +17,9 @@ public class PathPrediction : MonoBehaviour
     [SerializeField]
     private AsteroidManager obstacleManager;
 
+    [SerializeField]
+    private LifePointSystem lifePointSystem;
+
     private int nextSafePointIndex = 1;
     private bool isPlaying = false;
 
@@ -43,13 +46,20 @@ public class PathPrediction : MonoBehaviour
         if (player == null)
         {
             Debug.LogError("Missing player reference.");
+            return;
         }
 
         if (obstacleManager == null)
         {
             Debug.LogError("Missing obstacle parent transform.");
+            return;
         }
 
+        if (lifePointSystem == null)
+        {
+            Debug.LogError("Missing life point system reference.");
+            return;
+        }
     }
 
     void Update()
@@ -86,8 +96,15 @@ public class PathPrediction : MonoBehaviour
         Vector3 nextSafePoint = obstacleManagerTransform.GetChild(nextSafePointIndex).transform.position;
         nextSafePoint.x = prevPosition.x;
 
-        if (nextSafePoint.x - playerPosition.x <= -1)
+        if (nextSafePoint.x - playerPosition.x <= 1.0f)
         {
+            if (Mathf.Abs(prevPosition.y - playerPosition.y) <= 0.5f)
+            {
+                // Debug.Log("HIT!");
+                lifePointSystem.DoDamage(1);
+                player.PointToNextSafePoint(nextSafePoint);
+            }
+
             nextSafePoint = UpdateNextSafePoint();
         }
     }

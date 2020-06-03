@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public static event GameAction OnDisplayNextChallenge;
     public static event GameAction OnLevelUp;
     public static event GameAction OnAddScore;
-    public static event GameAction OnGameOver;
+    // public static event GameAction OnGameOver;
     public static event GameAction OnCorrectAnswer;
     public static event GameAction OnWrongAnswer;
 
@@ -30,9 +30,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private IntVariable currentLevel;
 
+    [SerializeField]
+    private LifePointSystem lifePointSystem;
+
     private ProblemRandomizer problemRandomizer;
     private int gameLevel;
-    private int lifeCount;
 
     void Start()
     {
@@ -42,7 +44,20 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        lifeCount = 3;
+        if (currentLevel == null)
+        {
+            Debug.LogError("Missing current level reference reference.");
+            return;
+        }
+
+        if (lifePointSystem == null)
+        {
+            Debug.LogError("Missing life point system reference.");
+            return;
+        }
+
+        // Debug.Log("reset life");
+        lifePointSystem.Reset();
         gameLevel = 1;
         problemRandomizer = new ProblemRandomizer();
         problemRandomizer.GenerateProblemList(gameLevel);
@@ -141,23 +156,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void DoDamage()
-    {
-        lifeCount--;
-
-        if (lifeCount == 0)
-        {
-            if (OnGameOver != null)
-            {
-                OnGameOver();
-            }
-        }
-        else if (OnWrongAnswer != null)
-        {
-            OnWrongAnswer();
-        }
-    }
-
     #endregion
 
     #region Public Methods
@@ -179,6 +177,30 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         SceneManager.LoadSceneAsync("PauseMenu", LoadSceneMode.Additive);
+    }
+
+    void DoDamage()
+    {
+        if (OnWrongAnswer != null)
+        {
+            OnWrongAnswer();
+        }
+
+        lifePointSystem.DoDamage(1);
+
+        // remainingLifePoints.RuntimeValue -= 1;
+
+        // if (remainingLifePoints.RuntimeValue == 0)
+        // {
+        //     if (OnGameOver != null)
+        //     {
+        //         OnGameOver();
+        //     }
+        // }
+        // else if (OnWrongAnswer != null)
+        // {
+        //     OnWrongAnswer();
+        // }
     }
 
     #endregion
