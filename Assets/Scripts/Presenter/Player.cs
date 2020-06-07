@@ -25,12 +25,14 @@ public class Player : MonoBehaviour
     {
         MainMenu.OnPlay += OnPlay;
         PauseMenu.OnQuit += OnQuit;
+        GameOverMenu.OnQuit += OnQuit;
     }
 
     void OnDisable()
     {
         MainMenu.OnPlay -= OnPlay;
         PauseMenu.OnQuit -= OnQuit;
+        GameOverMenu.OnQuit -= OnQuit;
     }
 
     void Start()

@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LifePointDisplay : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class LifePointDisplay : MonoBehaviour
         // Debug.Log("set onReset life");
         LifePointSystem.OnReset += ResetLifePoints;
         LifePointSystem.OnDamage += ResetLifePoints;
+        LifePointSystem.OnDeath += ShowGameOverMenu;
     }
 
     void OnDisable()
@@ -32,11 +34,18 @@ public class LifePointDisplay : MonoBehaviour
         // Debug.Log("remove onReset life");
         LifePointSystem.OnReset -= ResetLifePoints;
         LifePointSystem.OnDamage -= ResetLifePoints;
+        LifePointSystem.OnDeath -= ShowGameOverMenu;
     }
 
     #endregion
 
     #region Private
+
+    void ShowGameOverMenu(int lifePoints)
+    {
+        //Time.timeScale = 0;
+        SceneManager.LoadSceneAsync("GameOver", LoadSceneMode.Additive);
+    }
 
     void ResetLifePoints(int lifePoints)
     {

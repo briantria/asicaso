@@ -31,6 +31,7 @@ public class PathPrediction : MonoBehaviour
     {
         MainMenu.OnPlay += OnPlay;
         PauseMenu.OnQuit += OnQuit;
+        GameOverMenu.OnQuit += OnQuit;
         GameManager.OnCorrectAnswer += OnCorrectAnswer;
     }
 
@@ -38,6 +39,7 @@ public class PathPrediction : MonoBehaviour
     {
         MainMenu.OnPlay -= OnPlay;
         PauseMenu.OnQuit -= OnQuit;
+        GameOverMenu.OnQuit -= OnQuit;
         GameManager.OnCorrectAnswer -= OnCorrectAnswer;
     }
 
