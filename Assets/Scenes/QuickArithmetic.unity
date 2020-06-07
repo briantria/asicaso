@@ -5232,6 +5232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  spaceship: {fileID: 1895330776}
+  rocket: {fileID: 385251194}
 --- !u!210 &1612911063
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -5356,6 +5358,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d2906a5f4f1644db37959d32ad9df1, type: 3}
+--- !u!1 &1895330776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: c8d2906a5f4f1644db37959d32ad9df1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1881123583}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2125938077
 GameObject:
   m_ObjectHideFlags: 0

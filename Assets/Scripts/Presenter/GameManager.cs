@@ -82,6 +82,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (lifePointSystem.GetRemainingLifePoints() <= 0)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.LeftControl))
         {
             // Debug.Log("option 1");

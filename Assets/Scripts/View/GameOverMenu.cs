@@ -13,11 +13,17 @@ public class GameOverMenu : MonoBehaviour
 {
     public delegate void GameOverMenuAction();
     public static event GameOverMenuAction OnQuit;
+    public static event GameOverMenuAction OnRetry;
 
     public void RetryGame()
     {
+        if (OnRetry != null)
+        {
+            OnRetry();
+        }
+
         // Time.timeScale = 1;
-        // SceneManager.UnloadSceneAsync("GameOver");
+        SceneManager.UnloadSceneAsync("GameOver");
     }
 
     public void QuitGame()

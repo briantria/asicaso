@@ -15,6 +15,10 @@ public class LifePointDisplay : MonoBehaviour
 
     [SerializeField]
     private GameObject lifePointPrefab;
+
+    [SerializeField]
+    private LifePointSystem lifePointSystem;
+
     private List<GameObject> lifePointPool = new List<GameObject>();
 
     #endregion
@@ -27,6 +31,7 @@ public class LifePointDisplay : MonoBehaviour
         LifePointSystem.OnReset += ResetLifePoints;
         LifePointSystem.OnDamage += ResetLifePoints;
         LifePointSystem.OnDeath += ShowGameOverMenu;
+        GameOverMenu.OnRetry += Retry;
     }
 
     void OnDisable()
@@ -35,6 +40,7 @@ public class LifePointDisplay : MonoBehaviour
         LifePointSystem.OnReset -= ResetLifePoints;
         LifePointSystem.OnDamage -= ResetLifePoints;
         LifePointSystem.OnDeath -= ShowGameOverMenu;
+        GameOverMenu.OnRetry -= Retry;
     }
 
     #endregion
@@ -85,6 +91,18 @@ public class LifePointDisplay : MonoBehaviour
         {
             lifePointPool[idx].SetActive(false);
         }
+    }
+
+    void Retry()
+    {
+        if (lifePointSystem == null)
+        {
+            Debug.LogError("Missing life point system reference.");
+            return;
+        }
+
+        //ResetLifePoints(lifePointSystem.InitialLifePoints);
+        lifePointSystem.Reset();
     }
 
     #endregion

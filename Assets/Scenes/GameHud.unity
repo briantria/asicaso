@@ -171,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifePointPrefab: {fileID: 5083235764635861600, guid: c290c8b034899214e907a84fcdf92a36,
     type: 3}
+  lifePointSystem: {fileID: 11400000, guid: 4c96b9950d1f0914a8143596c38ce39d, type: 2}
 --- !u!1 &118838058
 GameObject:
   m_ObjectHideFlags: 0
