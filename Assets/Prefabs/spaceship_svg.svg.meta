@@ -1,13 +1,24 @@
 fileFormatVersion: 2
 guid: c8d2906a5f4f1644db37959d32ad9df1
 ScriptedImporter:
-  fileIDToRecycleName:
-    100000: gameObject/spaceship_svg
-    400000: gameObject/spaceship_svg/Transform
-    21200000: gameObject/spaceship_svg/SpriteRenderer
-    21300000: sprite
-    100100000: gameObject
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: gameObject/spaceship_svg
+  - first:
+      4: 400000
+    second: gameObject/spaceship_svg/Transform
+  - first:
+      212: 21200000
+    second: gameObject/spaceship_svg/SpriteRenderer
+  - first:
+      213: 21300000
+    second: sprite
+  - first:
+      1001: 100100000
+    second: gameObject
   externalObjects: {}
+  serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -19,6 +30,7 @@ ScriptedImporter:
   alignment: 0
   customPivot: {x: 0, y: 0}
   generatePhysicsShape: 0
+  viewportOptions: 0
   preserveViewport: 0
   advancedMode: 1
   predefinedResolutionIndex: 1
@@ -54,4 +66,5 @@ ScriptedImporter:
         width: 167
         height: 125
       spriteID: c6acd2ac2e40c1745a47a0bb371392e3
+      internalID: 0
     PhysicsOutlines: []

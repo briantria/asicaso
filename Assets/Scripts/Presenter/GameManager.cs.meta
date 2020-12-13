@@ -3,7 +3,11 @@ guid: e48518efd9223504383dce7591f82fe7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - currentMathProblem: {fileID: 11400000, guid: 906f56ae8f9eb8c40a769cf0d65c38f6,
+      type: 2}
+  - currentLevel: {fileID: 11400000, guid: 2ba109aed58ccb44a93af42a79d4c90d, type: 2}
+  - lifePointSystem: {fileID: 11400000, guid: 4c96b9950d1f0914a8143596c38ce39d, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

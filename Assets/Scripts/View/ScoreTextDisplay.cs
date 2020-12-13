@@ -41,7 +41,7 @@ public class ScoreTextDisplay : MonoBehaviour
     {
         if (currentScore == null)
         {
-            Debug.LogError("Missing current score reference");
+            Debug.LogError("Missing current score reference.");
             return;
         }
 

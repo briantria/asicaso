@@ -1,13 +1,24 @@
 fileFormatVersion: 2
 guid: 32bf64d9f1d9db6438847658d0051e65
 ScriptedImporter:
-  fileIDToRecycleName:
-    100000: gameObject/level_panel
-    400000: gameObject/level_panel/Transform
-    21200000: gameObject/level_panel/SpriteRenderer
-    21300000: sprite
-    100100000: gameObject
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: gameObject/level_panel
+  - first:
+      4: 400000
+    second: gameObject/level_panel/Transform
+  - first:
+      212: 21200000
+    second: gameObject/level_panel/SpriteRenderer
+  - first:
+      213: 21300000
+    second: sprite
+  - first:
+      1001: 100100000
+    second: gameObject
   externalObjects: {}
+  serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -19,6 +30,7 @@ ScriptedImporter:
   alignment: 0
   customPivot: {x: 0, y: 0}
   generatePhysicsShape: 0
+  viewportOptions: 0
   preserveViewport: 0
   advancedMode: 0
   predefinedResolutionIndex: 1
@@ -54,4 +66,5 @@ ScriptedImporter:
         width: 0
         height: 0
       spriteID: 8523cffb4a5795a40b8d477455686c4c
+      internalID: 0
     PhysicsOutlines: []
