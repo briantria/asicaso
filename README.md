@@ -4,6 +4,8 @@
 
 A basic Math game. The mechanics is the same with the flash cards used as a fun way to practice arithmetic.
 
+You can play it here: [triapps1990.itch.io/asicaso](https://triapps1990.itch.io/asicaso)
+
 ### Mechanics
 Select the correct answer to the given Math problem as fast as you can!
 
