@@ -63,12 +63,16 @@ public class AsteroidManager : MonoBehaviour
     {
         MainMenu.OnPlay += OnPlay;
         PauseMenu.OnQuit += OnQuit;
+        GameOverMenu.OnQuit += OnQuit;
+        GameOverMenu.OnRetry += Reset;
     }
 
     void OnDisable()
     {
         MainMenu.OnPlay -= OnPlay;
         PauseMenu.OnQuit -= OnQuit;
+        GameOverMenu.OnQuit -= OnQuit;
+        GameOverMenu.OnRetry -= Reset;
     }
 
     void Awake()
@@ -142,12 +146,13 @@ public class AsteroidManager : MonoBehaviour
 
     void OnQuit()
     {
-        isPlaying = false;
         this.Reset();
+        isPlaying = false;
     }
 
     void Reset()
     {
+        isPlaying = true;
         lastClusterPosition = spawnPoint;
         lastSpawnIndex = -1;
 

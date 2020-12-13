@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LifePointDisplay : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class LifePointDisplay : MonoBehaviour
 
     [SerializeField]
     private GameObject lifePointPrefab;
+
+    [SerializeField]
+    private LifePointSystem lifePointSystem;
+
     private List<GameObject> lifePointPool = new List<GameObject>();
 
     #endregion
@@ -25,6 +30,8 @@ public class LifePointDisplay : MonoBehaviour
         // Debug.Log("set onReset life");
         LifePointSystem.OnReset += ResetLifePoints;
         LifePointSystem.OnDamage += ResetLifePoints;
+        LifePointSystem.OnDeath += ShowGameOverMenu;
+        GameOverMenu.OnRetry += Retry;
     }
 
     void OnDisable()
@@ -32,11 +39,19 @@ public class LifePointDisplay : MonoBehaviour
         // Debug.Log("remove onReset life");
         LifePointSystem.OnReset -= ResetLifePoints;
         LifePointSystem.OnDamage -= ResetLifePoints;
+        LifePointSystem.OnDeath -= ShowGameOverMenu;
+        GameOverMenu.OnRetry -= Retry;
     }
 
     #endregion
 
     #region Private
+
+    void ShowGameOverMenu(int lifePoints)
+    {
+        //Time.timeScale = 0;
+        SceneManager.LoadSceneAsync("GameOver", LoadSceneMode.Additive);
+    }
 
     void ResetLifePoints(int lifePoints)
     {
@@ -76,6 +91,18 @@ public class LifePointDisplay : MonoBehaviour
         {
             lifePointPool[idx].SetActive(false);
         }
+    }
+
+    void Retry()
+    {
+        if (lifePointSystem == null)
+        {
+            Debug.LogError("Missing life point system reference.");
+            return;
+        }
+
+        //ResetLifePoints(lifePointSystem.InitialLifePoints);
+        lifePointSystem.Reset();
     }
 
     #endregion

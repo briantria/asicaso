@@ -14,6 +14,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed = 2.0f;
 
+    [SerializeField]
+    private GameObject spaceship;
+
+    [SerializeField]
+    private GameObject rocket;
+
     private Vector3 nextSafePoint;
     private bool isPlaying;
 
@@ -25,16 +31,34 @@ public class Player : MonoBehaviour
     {
         MainMenu.OnPlay += OnPlay;
         PauseMenu.OnQuit += OnQuit;
+        GameOverMenu.OnQuit += OnQuit;
+        GameOverMenu.OnRetry += Reset;
+        LifePointSystem.OnDeath += OnDeath;
     }
 
     void OnDisable()
     {
         MainMenu.OnPlay -= OnPlay;
         PauseMenu.OnQuit -= OnQuit;
+        GameOverMenu.OnQuit -= OnQuit;
+        GameOverMenu.OnRetry -= Reset;
+        LifePointSystem.OnDeath -= OnDeath;
     }
 
     void Start()
     {
+        if (spaceship == null)
+        {
+            Debug.LogError("Missing spaceship reference.");
+            return;
+        }
+
+        if (rocket == null)
+        {
+            Debug.LogError("Missing rocket reference.");
+            return;
+        }
+
         nextSafePoint = transform.position;
     }
 
@@ -92,11 +116,27 @@ public class Player : MonoBehaviour
 
     void OnQuit()
     {
+        Reset();
         isPlaying = false;
+    }
+
+    void Reset()
+    {
+        spaceship.SetActive(true);
+        rocket.SetActive(true);
+
         Vector3 pos = this.transform.position;
         pos.y = 0;
         this.transform.position = pos;
         this.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        isPlaying = true;
+    }
+
+    void OnDeath(int lifeCount)
+    {
+        spaceship.SetActive(false);
+        rocket.SetActive(false);
     }
 
     #endregion

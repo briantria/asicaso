@@ -31,14 +31,20 @@ public class PathPrediction : MonoBehaviour
     {
         MainMenu.OnPlay += OnPlay;
         PauseMenu.OnQuit += OnQuit;
+        GameOverMenu.OnQuit += OnQuit;
+        GameOverMenu.OnRetry += Retry;
         GameManager.OnCorrectAnswer += OnCorrectAnswer;
+        LifePointSystem.OnDeath += OnDeath;
     }
 
     void OnDisable()
     {
         MainMenu.OnPlay -= OnPlay;
         PauseMenu.OnQuit -= OnQuit;
+        GameOverMenu.OnQuit -= OnQuit;
+        GameOverMenu.OnRetry -= Retry;
         GameManager.OnCorrectAnswer -= OnCorrectAnswer;
+        LifePointSystem.OnDeath -= OnDeath;
     }
 
     void Start()
@@ -127,6 +133,17 @@ public class PathPrediction : MonoBehaviour
     }
 
     void OnQuit()
+    {
+        isPlaying = false;
+    }
+
+    void Retry()
+    {
+        nextSafePointIndex = 1;
+        isPlaying = true;
+    }
+
+    void OnDeath(int lifeCount)
     {
         isPlaying = false;
     }

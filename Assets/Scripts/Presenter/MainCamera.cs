@@ -20,12 +20,14 @@ public class MainCamera : MonoBehaviour
     {
         MainMenu.OnPlay += ZoomOut;
         PauseMenu.OnQuit += ZoomIn;
+        GameOverMenu.OnQuit += ZoomIn;
     }
 
     void OnDisable()
     {
         MainMenu.OnPlay -= ZoomOut;
         PauseMenu.OnQuit -= ZoomIn;
+        GameOverMenu.OnQuit -= ZoomIn;
     }
 
     void Start()

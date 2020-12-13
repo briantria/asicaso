@@ -12,8 +12,10 @@ public class ScoreTextDisplay : MonoBehaviour
 {
     #region Properties
 
+    [SerializeField]
+    private IntVariable currentScore;
+
     private Text scoreDisplay;
-    private int currentScore = 0;
 
     #endregion
 
@@ -22,15 +24,27 @@ public class ScoreTextDisplay : MonoBehaviour
     void OnEnable()
     {
         GameManager.OnCorrectAnswer += UpdateScore;
+        PauseMenu.OnQuit += ResetScore;
+        GameOverMenu.OnRetry += ResetScore;
+        GameOverMenu.OnQuit += ResetScore;
     }
 
     void OnDisable()
     {
         GameManager.OnCorrectAnswer -= UpdateScore;
+        PauseMenu.OnQuit -= ResetScore;
+        GameOverMenu.OnRetry -= ResetScore;
+        GameOverMenu.OnQuit -= ResetScore;
     }
 
-    void Awake()
+    void Start()
     {
+        if (currentScore == null)
+        {
+            Debug.LogError("Missing current score reference");
+            return;
+        }
+
         scoreDisplay = GetComponent<Text>();
         if (scoreDisplay == null)
         {
@@ -38,7 +52,7 @@ public class ScoreTextDisplay : MonoBehaviour
             return;
         }
 
-        scoreDisplay.text = "$ " + currentScore;
+        scoreDisplay.text = "$ " + currentScore.RuntimeValue;
     }
 
     #endregion
@@ -53,8 +67,14 @@ public class ScoreTextDisplay : MonoBehaviour
             return;
         }
 
-        currentScore += 10;
-        scoreDisplay.text = "$ " + currentScore;
+        currentScore.RuntimeValue += 10;
+        scoreDisplay.text = "$ " + currentScore.RuntimeValue;
+    }
+
+    void ResetScore()
+    {
+        currentScore.RuntimeValue = 0;
+        scoreDisplay.text = "$ " + currentScore.RuntimeValue;
     }
 
     #endregion
